@@ -10,7 +10,7 @@ import UIKit
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
-        super.viewWillAppear(true)
+        super.viewWillDisappear(true)
     }
 
 
