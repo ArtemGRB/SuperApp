@@ -23,11 +23,19 @@ class AuthorizationViewController: UIViewController {
 
     // MARK: - Property
     var presenter: AuthorizationViewToPresenterProtocol!
+    private let backgroundColor = UIColor(red: 61/255, green: 139/255, blue: 188/255, alpha: 1)
+    private let elementOffset = 10
+    
+    private lazy var scrollView: UIScrollView = {
+       let scroll = UIScrollView()
+        scroll.showsVerticalScrollIndicator = false
+        scroll.showsHorizontalScrollIndicator = false
+        scroll.alwaysBounceVertical = true
+        return scroll
+    }()
+    
     var commonView: UIView = {
-        
-        let commonView = UIView()
-        commonView.backgroundColor = UIColor(red: 61/255, green: 139/255, blue: 188/255, alpha: 1)
-        return commonView
+        return UIView()
     }()
     
     private lazy var label: UILabel = {
@@ -101,9 +109,7 @@ class AuthorizationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
-        
-        
+        registerForKeyboardNotifications()
         configureUI()
         presenter.viewDidLoad()
     }
@@ -111,24 +117,28 @@ class AuthorizationViewController: UIViewController {
     
     // MARK: - private func
     private func commonInit() {
-
+        
+        [commonView, scrollView].forEach { $0.backgroundColor = backgroundColor}
     }
     
     private func configureUI() {
-        view.addSubview(commonView)
-        
-        commonView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints { make in
+            make.directionalEdges.equalToSuperview()
         }
-
         
-        
+        scrollView.addSubview(commonView)
+        commonView.snp.makeConstraints { make in
+            make.directionalEdges.equalToSuperview()
+            make.width.equalToSuperview()
+        }
+     
         // MARK: - верстка лого
         
         commonView.addSubview(label)
 
         label.snp.makeConstraints { make in
-            make.top.equalTo(additionalSafeAreaInsets).inset(200)
+            make.top.equalTo(400)
             make.left.equalToSuperview().inset(40)
             make.right.equalToSuperview().inset(40)
             make.width.equalTo(150)
@@ -139,9 +149,8 @@ class AuthorizationViewController: UIViewController {
         
         commonView.addSubview(loginText)
         
-        
         loginText.snp.makeConstraints { make in
-            make.top.equalTo(label).inset(80)
+            make.top.equalTo(label.snp.bottom).offset(elementOffset)
             make.left.equalToSuperview().inset(40)
             make.right.equalToSuperview().inset(40)
             make.width.equalTo(150)
@@ -152,9 +161,8 @@ class AuthorizationViewController: UIViewController {
         
         commonView.addSubview(pwText)
         
-       
         pwText.snp.makeConstraints { make in
-            make.top.equalTo(loginText).inset(50)
+            make.top.equalTo(loginText.snp.bottom).offset(elementOffset)
             make.left.equalToSuperview().inset(40)
             make.right.equalToSuperview().inset(40)
             make.width.equalTo(150)
@@ -166,12 +174,39 @@ class AuthorizationViewController: UIViewController {
         commonView.addSubview(buttonLoginIn)
         
         buttonLoginIn.snp.makeConstraints { make in
-            make.top.equalTo(pwText).inset(50)
+            make.top.equalTo(pwText.snp.bottom).offset(elementOffset)
             make.left.equalToSuperview().inset(40)
             make.right.equalToSuperview().inset(40)
             make.width.equalTo(80)
             make.height.equalTo(30)
+            make.bottom.equalToSuperview()
         }
+    }
+    
+    private func registerForKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(presentKeyboard),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(hideKeyboard),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+    
+    @objc
+    private  func presentKeyboard(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            let keyboardHeight = keyboardSize.height + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0)
+            
+            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
+            scrollView.scrollToBottom()
+        }
+    }
+    
+    @objc
+    private func hideKeyboard() {
+        scrollView.contentInset = .zero
     }
 }
 

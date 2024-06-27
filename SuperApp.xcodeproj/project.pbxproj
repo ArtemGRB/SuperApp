@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FADB85A72C2D8A9300080DBB /* UIScrollView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB85A62C2D8A9300080DBB /* UIScrollView+extension.swift */; };
 		FE8BF5252C24781000B77CA1 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FE8BF5242C24781000B77CA1 /* SnapKit */; };
 		FE8C71472C2066B30047511F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8C71462C2066B30047511F /* AppDelegate.swift */; };
 		FE8C71492C2066B30047511F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8C71482C2066B30047511F /* SceneDelegate.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FADB85A62C2D8A9300080DBB /* UIScrollView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+extension.swift"; sourceTree = "<group>"; };
 		FE8C71432C2066B30047511F /* SuperApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE8C71462C2066B30047511F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE8C71482C2066B30047511F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +49,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FADB85A52C2D8A7000080DBB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FADB85A62C2D8A9300080DBB /* UIScrollView+extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		FE8C713A2C2066B30047511F = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +76,7 @@
 		FE8C71452C2066B30047511F /* SuperApp */ = {
 			isa = PBXGroup;
 			children = (
+				FADB85A52C2D8A7000080DBB /* Extensions */,
 				FED0D2BB2C25AF5100AB9ECD /* AuthorizationVC */,
 				FE8C71462C2066B30047511F /* AppDelegate.swift */,
 				FE8C71482C2066B30047511F /* SceneDelegate.swift */,
@@ -172,6 +183,7 @@
 				FED0D2B62C25AF2C00AB9ECD /* AuthorizationPresenter.swift in Sources */,
 				FED0D2BA2C25AF2C00AB9ECD /* AuthorizationConfigurator.swift in Sources */,
 				FE8C71472C2066B30047511F /* AppDelegate.swift in Sources */,
+				FADB85A72C2D8A9300080DBB /* UIScrollView+extension.swift in Sources */,
 				FE8C71492C2066B30047511F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
